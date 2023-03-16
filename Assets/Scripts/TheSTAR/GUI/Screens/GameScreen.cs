@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using TheSTAR.Utility.Pointer;
 using UnityEngine;
@@ -11,12 +11,13 @@ namespace TheSTAR.GUI.Screens
         [SerializeField] private PointerButton exitButton;
         [SerializeField] private CanvasGroup canvasGroup;
 
-        private GuiController _gui;
         private Sound.SoundController _sound;
 
-        public void Init(GuiController gui, Sound.SoundController sound)
+        public event Action AnimateExitGameEvent;
+        public event Action DoExitGameEvent;
+
+        public void Init(Sound.SoundController sound)
         {
-            _gui = gui;
             _sound = sound;
 
             exitButton.Init(OnExitButtonClick);
@@ -24,7 +25,9 @@ namespace TheSTAR.GUI.Screens
 
         private void OnExitButtonClick()
         {
-            Hide(() => _gui.Show<MenuScreen>());
+            AnimateExitGameEvent?.Invoke();
+
+            Hide(DoExitGameEvent);
             _sound.StopMusic(Sound.MusicChangeType.Volume);
         }
 

@@ -18,7 +18,8 @@ namespace TheSTAR.GUI
 
         #endregion // Inspector
 
-        [Inject] private Sound.SoundController _sound;
+        [Inject] private readonly Sound.SoundController _sound;
+        [Inject] private readonly GameController gameController;
 
         private GuiScreen currentScreen;
 
@@ -33,10 +34,21 @@ namespace TheSTAR.GUI
                 if (deactivateOtherScreensByStart && screen.gameObject.activeSelf) screen.gameObject.SetActive(false);
             }
 
-            FindScreen<MenuScreen>().Init(this, _sound);
-            FindScreen<GameScreen>().Init(this, _sound);
+            var menu = FindScreen<MenuScreen>();
+            menu.Init(_sound);
+            menu.StartGameEvent += gameController.StartGame;
+
+            var game = FindScreen<GameScreen>();
+            game.Init(_sound);
+            game.AnimateExitGameEvent += gameController.AnimateExitGame;
+            game.DoExitGameEvent += gameController.ExitGame;
 
             if (showMainScreenByStart && mainScreen != null) Show(mainScreen, false);
+
+            // game events
+
+            gameController.StartGameEvent += () => Show<GameScreen>();
+            gameController.ExitGameEvent += () => Show<MenuScreen>();
         }
 
         public void Show<TScreen>(bool closeCurrentScreen = false, Action endAction = null) where TScreen : GuiScreen

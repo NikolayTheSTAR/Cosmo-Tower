@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TheSTAR.Utility.Pointer;
@@ -11,12 +11,11 @@ namespace TheSTAR.GUI.Screens
         [SerializeField] private PointerButton playButton;
         [SerializeField] private CanvasGroup canvasGroup;
 
-        private GuiController _gui;
         private Sound.SoundController _sound;
+        public event Action StartGameEvent;
 
-        public void Init(GuiController gui, Sound.SoundController sound)
+        public void Init(Sound.SoundController sound)
         {
-            _gui = gui;
             _sound = sound;
 
             playButton.Init(OnPlayButtonClick);
@@ -24,7 +23,7 @@ namespace TheSTAR.GUI.Screens
 
         private void OnPlayButtonClick()
         {
-            Hide(() => _gui.Show<GameScreen>());
+            Hide(StartGameEvent);
             _sound.StopMusic(Sound.MusicChangeType.Volume);
         }
 
