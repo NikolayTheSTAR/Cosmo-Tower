@@ -10,7 +10,7 @@ public class Tower : MonoBehaviour
 
     public event Action OnTowerDestroyed;
 
-    public void Init(int maxHp)
+    public void InitForBattle(int maxHp)
     {
         this._maxHp = maxHp;
         _currentHp = maxHp;

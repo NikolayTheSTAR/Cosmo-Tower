@@ -8,6 +8,7 @@ public class GameWorld : MonoBehaviour
     [SerializeField] private GameObject content;
     [SerializeField] private Animation contentAnim;
     [SerializeField] private Tower tower;
+    [SerializeField] private EnemySimulator enemySimulator;
 
     [Inject] private readonly GameController gameController;
 
@@ -23,10 +24,20 @@ public class GameWorld : MonoBehaviour
     private void ActivateContent()
     {
         content.SetActive(true);
-        tower.Init(5);
+        tower.InitForBattle(5);
+
+        enemySimulator.StartSimulate(tower.transform);
     }
 
-    private void DeactivateContent() => content.SetActive(false);
+    private void DeactivateContent()
+    {
+        content.SetActive(false);
+        enemySimulator.StopSimulate();
+    }
 
-    public void AnimateHideContent() => contentAnim.Play("Hide");
+    public void AnimateHideContent()
+    {
+        contentAnim.Play("Hide");
+        enemySimulator.StopSimulate();
+    }
 }
