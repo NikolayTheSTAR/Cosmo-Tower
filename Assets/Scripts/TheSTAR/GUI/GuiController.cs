@@ -18,8 +18,9 @@ namespace TheSTAR.GUI
 
         #endregion // Inspector
 
-        [Inject] private readonly Sound.SoundController _sound;
+        [Inject] private readonly Sound.SoundController sound;
         [Inject] private readonly GameController gameController;
+        [Inject] private readonly GameWorld world;
 
         private GuiScreen currentScreen;
 
@@ -35,20 +36,34 @@ namespace TheSTAR.GUI
             }
 
             var menu = FindScreen<MenuScreen>();
-            menu.Init(_sound);
-            menu.StartGameEvent += gameController.StartGame;
-
+            menu.Init(sound, () =>
+            {
+                sound.StopMusic(Sound.MusicChangeType.Volume);
+                HideCurrentScreen(gameController.StartBattle);
+            });
+            
             var game = FindScreen<GameScreen>();
-            game.Init(_sound);
-            game.AnimateExitGameEvent += gameController.AnimateExitGame;
-            game.DoExitGameEvent += gameController.ExitGame;
+            game.Init(sound, () =>
+            {
+                world.AnimateHideContent();
+                sound.StopMusic(Sound.MusicChangeType.Volume);
+                HideCurrentScreen(gameController.ExitBattle);
+            });
+
+            var result = FindScreen<ResultScreen>();
+            result.Init(sound, gameController.StartBattle, gameController.ExitBattle);
 
             if (showMainScreenByStart && mainScreen != null) Show(mainScreen, false);
 
             // game events
 
-            gameController.StartGameEvent += () => Show<GameScreen>();
-            gameController.ExitGameEvent += () => Show<MenuScreen>();
+            gameController.StartBattleEvent += () => Show<GameScreen>(true);
+            gameController.ExitBattleEvent += () => Show<MenuScreen>(true);
+            gameController.BattleLostEvent += () =>
+            {
+                sound.StopMusic(Sound.MusicChangeType.Volume);
+                HideCurrentScreen(() => Show<ResultScreen>());
+            };
         }
 
         public void Show<TScreen>(bool closeCurrentScreen = false, Action endAction = null) where TScreen : GuiScreen
@@ -64,6 +79,12 @@ namespace TheSTAR.GUI
             
             screen.Show(endAction, skipShowAnim);
             currentScreen = screen;
+        }
+
+        public void HideCurrentScreen(Action endAction = null)
+        {
+            if (!currentScreen) return;
+            currentScreen.Hide(endAction);
         }
 
         public T FindScreen<T>() where T : GuiScreen

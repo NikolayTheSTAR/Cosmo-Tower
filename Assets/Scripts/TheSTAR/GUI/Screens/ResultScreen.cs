@@ -1,25 +1,23 @@
 using System;
 using System.Collections.Generic;
-using TheSTAR.Utility.Pointer;
 using UnityEngine;
-using TheSTAR.GUI;
+using TheSTAR.Utility.Pointer;
 
 namespace TheSTAR.GUI.Screens
 {
-    public class GameScreen : GuiScreen
+    public class ResultScreen : GuiScreen
     {
-        [SerializeField] private PointerButton exitButton;
         [SerializeField] private CanvasGroup canvasGroup;
+        [SerializeField] private PointerButton restartButton;
+        [SerializeField] private PointerButton exitButton;
 
         private Sound.SoundController _sound;
 
-        //public event Action AnimateExitGameEvent;
-        //public event Action DoExitGameEvent;
-
-        public void Init(Sound.SoundController sound, Action exitAction)
+        public void Init(Sound.SoundController sound, Action restartAction, Action exitAction)
         {
             _sound = sound;
 
+            restartButton.Init(restartAction);
             exitButton.Init(exitAction);
         }
 
@@ -36,7 +34,5 @@ namespace TheSTAR.GUI.Screens
             LeanTween.alphaCanvas(canvasGroup, 0, AnimateTime);
             time = (int)(AnimateTime * 1000);
         }
-
-        protected override void OnShow() => _sound.PlayMusic(Sound.MusicType.BattleTheme);
     }
 }

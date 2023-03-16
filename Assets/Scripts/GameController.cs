@@ -12,9 +12,9 @@ public class GameController : MonoBehaviour
     [Inject] private readonly GuiController gui;
     [Inject] private readonly GameWorld world;
 
-    public event Action StartGameEvent;
-    public event Action AnimateExitGameEvent;
-    public event Action ExitGameEvent;
+    public event Action StartBattleEvent;
+    public event Action ExitBattleEvent;
+    public event Action BattleLostEvent;
 
     private void Start()
     {
@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour
         world.Init();
     }
 
-    public void StartGame() => StartGameEvent?.Invoke();
-    public void AnimateExitGame() => AnimateExitGameEvent.Invoke();
-    public void ExitGame() => ExitGameEvent.Invoke();
+    public void StartBattle() => StartBattleEvent?.Invoke();
+    public void ExitBattle() => ExitBattleEvent.Invoke();
+    public void BattleLost() => BattleLostEvent.Invoke();
 }

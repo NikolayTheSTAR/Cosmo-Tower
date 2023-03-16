@@ -14,17 +14,11 @@ namespace TheSTAR.GUI.Screens
         private Sound.SoundController _sound;
         public event Action StartGameEvent;
 
-        public void Init(Sound.SoundController sound)
+        public void Init(Sound.SoundController sound, Action startGameAction)
         {
             _sound = sound;
 
-            playButton.Init(OnPlayButtonClick);
-        }
-
-        private void OnPlayButtonClick()
-        {
-            Hide(StartGameEvent);
-            _sound.StopMusic(Sound.MusicChangeType.Volume);
+            playButton.Init(startGameAction);
         }
 
         protected override void AnimateShow(out int time)
