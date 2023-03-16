@@ -18,6 +18,8 @@ public class GameWorld : MonoBehaviour
         gameController.ExitBattleEvent += DeactivateContent;
         gameController.BattleLostEvent += DeactivateContent;
 
+        enemySimulator.Init(tower.Damage);
+
         tower.OnTowerDestroyed += gameController.BattleLost;
     }
 

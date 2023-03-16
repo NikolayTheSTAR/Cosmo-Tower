@@ -5,7 +5,10 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private float _speed = 1;
+    private float _force = 1;
     private float _neededGoalDistance = 0.25f;
+
+    public float Force => _force;
 
     private Action<Enemy> OnGoalReached;
 

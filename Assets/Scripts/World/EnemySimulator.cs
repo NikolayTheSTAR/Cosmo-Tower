@@ -1,7 +1,8 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TheSTAR.Utility;
+using Random = UnityEngine.Random;
 
 public class EnemySimulator : MonoBehaviour
 {
@@ -16,6 +17,12 @@ public class EnemySimulator : MonoBehaviour
     private float _spawnDistance = 5f;
     private TimeCycleControl _spawnControl;
     private Transform _enemyGoal;
+    private Action<float> _attackAction;
+
+    public void Init(Action<float> attackAction)
+    {
+        _attackAction = attackAction;
+    }
 
     public void StartSimulate(Transform goal)
     {
@@ -32,6 +39,8 @@ public class EnemySimulator : MonoBehaviour
 
         _isSimulate = false;
         _spawnControl.Stop();
+
+        activeEnemies.Clear();
 
         HideEnemies();
     }
@@ -88,6 +97,8 @@ public class EnemySimulator : MonoBehaviour
     {
         activeEnemies.Remove(e);
         e.gameObject.SetActive(false);
+
+        _attackAction?.Invoke(e.Force);
     }
 
     private void HideEnemies()

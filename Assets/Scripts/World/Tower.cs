@@ -24,7 +24,7 @@ public class Tower : MonoBehaviour
         Damage(_maxHp);
     }
 
-    private void Damage(int force)
+    public void Damage(float force)
     {
         _currentHp -= force;
 
