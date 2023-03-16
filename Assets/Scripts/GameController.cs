@@ -18,7 +18,6 @@ public class GameController : MonoBehaviour
     private void Init()
     {
         sounds.Init();
-        sounds.PlayMusic(MusicType.MainMenuTheme);
 
         gui.Init();
     }

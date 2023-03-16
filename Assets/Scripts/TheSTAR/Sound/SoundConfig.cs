@@ -70,6 +70,7 @@ namespace TheSTAR.Sound
 
     public enum MusicType
     {
-        MainMenuTheme
+        MainMenuTheme,
+        BattleTheme
     }
 }

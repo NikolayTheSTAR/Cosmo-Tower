@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using TheSTAR.Utility;
 using UnityEngine.Serialization;
+using TheSTAR.GUI.Screens;
+using Zenject;
 
 namespace TheSTAR.GUI
 {
@@ -16,6 +18,8 @@ namespace TheSTAR.GUI
 
         #endregion // Inspector
 
+        [Inject] private Sound.SoundController _sound;
+
         private GuiScreen currentScreen;
 
         public void Init()
@@ -26,10 +30,11 @@ namespace TheSTAR.GUI
 
                 if (screen == null) continue;
 
-                screen.Init();
-
                 if (deactivateOtherScreensByStart && screen.gameObject.activeSelf) screen.gameObject.SetActive(false);
             }
+
+            FindScreen<MenuScreen>().Init(this, _sound);
+            FindScreen<GameScreen>().Init(this, _sound);
 
             if (showMainScreenByStart && mainScreen != null) Show(mainScreen, false);
         }

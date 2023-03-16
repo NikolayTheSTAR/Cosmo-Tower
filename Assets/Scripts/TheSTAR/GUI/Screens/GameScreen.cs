@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TheSTAR.Utility.Pointer;
-using TheSTAR.Utility;
+using UnityEngine;
+using TheSTAR.GUI;
 
 namespace TheSTAR.GUI.Screens
 {
-    public class MenuScreen : GuiScreen
+    public class GameScreen : GuiScreen
     {
-        [SerializeField] private PointerButton playButton;
+        [SerializeField] private PointerButton exitButton;
         [SerializeField] private CanvasGroup canvasGroup;
 
         private GuiController _gui;
@@ -19,12 +19,12 @@ namespace TheSTAR.GUI.Screens
             _gui = gui;
             _sound = sound;
 
-            playButton.Init(OnPlayButtonClick);
+            exitButton.Init(OnExitButtonClick);
         }
 
-        private void OnPlayButtonClick()
+        private void OnExitButtonClick()
         {
-            Hide(() => _gui.Show<GameScreen>());
+            Hide(() => _gui.Show<MenuScreen>());
             _sound.StopMusic(Sound.MusicChangeType.Volume);
         }
 
@@ -42,6 +42,6 @@ namespace TheSTAR.GUI.Screens
             time = (int)(AnimateTime * 1000);
         }
 
-        protected override void OnShow() => _sound.PlayMusic(Sound.MusicType.MainMenuTheme);
+        protected override void OnShow() => _sound.PlayMusic(Sound.MusicType.BattleTheme);
     }
 }

@@ -13,7 +13,7 @@ namespace TheSTAR.GUI
 
         public bool IsShow => isShow;
 
-        public virtual void Init() {}
+        protected const float AnimateTime = 0.25f;
 
         public async void Show(Action endAction = null, bool skipShowAnim = false)
         {

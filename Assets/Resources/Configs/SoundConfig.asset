@@ -19,5 +19,10 @@ MonoBehaviour:
     loop: 1
     type: 0
     name: 
+  - clip: {fileID: 8300000, guid: 990f37317f3594851aa618a58afdca2b, type: 3}
+    volume: 1
+    loop: 1
+    type: 1
+    name: 
   timeClear: 1
-  timeMusicChange: 1
+  timeMusicChange: 0.25
