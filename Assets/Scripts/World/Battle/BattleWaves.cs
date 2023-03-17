@@ -66,7 +66,9 @@ public class BattleWaves
         }
         else phaseTime = BattleConfig.WavesData.RestPhaseTime;
 
-        foreach (var wr in _waveReactables) wr.OnStartWave(_waveIndex, battlePhaseType);
+        var currentWaveData = GetCurrentWaveData();
+
+        foreach (var wr in _waveReactables) wr.OnStartWave(_waveIndex, battlePhaseType, currentWaveData);
 
         _counterLTID =
         LeanTween.value(0, 1, phaseTime)
@@ -92,5 +94,5 @@ public enum BattlePhaseType
 public interface IWaveReactable
 {
     void OnSetWaveProgress(float progress);
-    void OnStartWave(int waveIndex, BattlePhaseType battlePhaseType);
+    void OnStartWave(int waveIndex, BattlePhaseType battlePhaseType, BattleWaveData waveData);
 }

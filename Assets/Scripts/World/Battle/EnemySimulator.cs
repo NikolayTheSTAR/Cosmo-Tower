@@ -25,11 +25,9 @@ public class EnemySimulator : MonoBehaviour, IWaveReactable
     private TimeCycleControl _spawnControl;
     private Transform _enemyGoal;
     private Action<float> _attackAction;
-    private BattleWaves _waves;
 
-    public void Init(BattleWaves waves, Action<float> attackAction)
+    public void Init(Action<float> attackAction)
     {
-        _waves = waves;
         _attackAction = attackAction;
     }
 
@@ -110,15 +108,16 @@ public class EnemySimulator : MonoBehaviour, IWaveReactable
     {
     }
 
-    public void OnStartWave(int waveIndex, BattlePhaseType battlePhaseType)
+    public void OnStartWave(int waveIndex, BattlePhaseType battlePhaseType, BattleWaveData waveData)
     {
         switch (battlePhaseType)
         {
             case BattlePhaseType.Attack:
 
-                var waveData = _waves.GetCurrentWaveData();
                 _enemyForceForWave = waveData.EnemyForce;
                 _enemyHpForWave = waveData.EnemyHp;
+                _spawnPeriodMin = waveData.SpawnMinPeriod;
+                _spawnPeriodMax = waveData.SpawnMaxPeriod;
 
                 if (!_isPausedForRest) return;
                 _isPausedForRest = false;

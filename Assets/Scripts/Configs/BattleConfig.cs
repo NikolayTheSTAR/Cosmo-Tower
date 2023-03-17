@@ -32,7 +32,11 @@ public class BattleWaveData
 {
     [SerializeField] private float enemyForce;
     [SerializeField] private float enemyHp;
+    [SerializeField] private float spawnMinPeriod;
+    [SerializeField] private float spawnMaxPeriod;
 
     public float EnemyForce => enemyForce;
     public float EnemyHp => enemyHp;
+    public float SpawnMinPeriod => spawnMinPeriod;
+    public float SpawnMaxPeriod => spawnMaxPeriod;
 }

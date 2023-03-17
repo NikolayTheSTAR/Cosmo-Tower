@@ -23,7 +23,7 @@ public class BattleSimulator : MonoBehaviour
     {
         wrs.Add(enemySimulator);
         waves = new(wrs);
-        enemySimulator.Init(waves, tower.Damage);
+        enemySimulator.Init(tower.Damage);
         tower.Init(hrs, bulletsContainer.Shoot, gameController.BattleLost);
     }
 

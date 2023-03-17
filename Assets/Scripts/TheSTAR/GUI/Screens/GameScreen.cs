@@ -73,7 +73,7 @@ namespace TheSTAR.GUI.Screens
         public void OnChangeHpReact(HpOwner hpOwner) => towerStatsPanel.OnChangeHpReact(hpOwner);
 
         public void OnSetWaveProgress(float progress) => waveStatsPanel.OnSetWaveProgress(progress);
-        public void OnStartWave(int waveIndex, BattlePhaseType battlePhaseType) => waveStatsPanel.OnStartWave(waveIndex, battlePhaseType);
+        public void OnStartWave(int waveIndex, BattlePhaseType battlePhaseType, BattleWaveData waveData) => waveStatsPanel.OnStartWave(waveIndex, battlePhaseType, waveData);
 
         #endregion
     }
