@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour, IUpgradeReactable
 {
+    [SerializeField] private CircleCollider2D trigger;
+    [SerializeField] private Transform arenaCircleTran;
+
+    private float defaultRadius = 1.5f;
     private HpOwner hpOwner;
     private AutoShooter autoShooter;
 
@@ -40,7 +44,8 @@ public class Tower : MonoBehaviour, IUpgradeReactable
                 break;
 
             case UpgradeType.AttackDistance:
-                
+                trigger.radius = defaultRadius * value;
+                arenaCircleTran.localScale = new Vector2(value, value);
                 break;
         }
     }
