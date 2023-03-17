@@ -7,6 +7,7 @@ using TMPro;
 public class UpgradeUI : MonoBehaviour
 {
     [SerializeField] private PointerButton buyButton;
+    [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private TextMeshProUGUI title;
     [SerializeField] private TextMeshProUGUI costText;
 
@@ -20,8 +21,13 @@ public class UpgradeUI : MonoBehaviour
         buyButton.Init(() => clickAction.Invoke(_upgradeType));
     }
 
-    public void Set(int cost)
+    public void SetCost(int cost)
     {
         costText.text = $"$ {cost}";
+    }
+
+    public void SetAvailable(bool available)
+    {
+        canvasGroup.alpha = available ? 1 : 0.5f;
     }
 }

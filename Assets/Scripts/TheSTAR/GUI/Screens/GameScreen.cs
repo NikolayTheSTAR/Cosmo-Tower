@@ -43,9 +43,10 @@ namespace TheSTAR.GUI.Screens
 
         protected override void OnShow() => _sound.PlayMusic(Sound.MusicType.BattleTheme);
 
-        public void OnTransactionReact(CurrencyType itemType, int finalValue)
+        public void OnTransactionReact(CurrencyType currencyType, int finalValue)
         {
             coinsCounter.text = $"$ {finalValue}";
+            upgradePanel.OnTransactionReact(currencyType, finalValue);
         }
 
         private void OnShowHideUpgradesButtonClick()

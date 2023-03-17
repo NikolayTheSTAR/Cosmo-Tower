@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheSTAR.Utility;
 
-public class UpgradePanel : MonoBehaviour, IUpgradeReactable
+public class UpgradePanel : MonoBehaviour, IUpgradeReactable, ITransactionReactable
 {
     [SerializeField] private UpgradeUI[] upgrades = new UpgradeUI[0];
 
@@ -30,12 +30,25 @@ public class UpgradePanel : MonoBehaviour, IUpgradeReactable
         }
     }
 
+    public void OnTransactionReact(CurrencyType currencyType, int finalValue)
+    {
+        var upgradeTypes = EnumUtility.GetValues<UpgradeType>();
+        int cost;
+
+        for (int i = 0; i < upgradeTypes.Length; i++)
+        {
+            UpgradeType upgradeType = upgradeTypes[i];
+            cost = _upgradesController.GetNextUpgradeLevelData(upgradeType).Cost;
+            upgrades[i].SetAvailable(finalValue >= cost);
+        }
+    }
+
     public void OnUpgradeReact(UpgradeType upgradeType, float value)
     {
         var ui = upgrades[(int)upgradeType];
         int cost = _upgradesController.GetNextUpgradeLevelData(upgradeType).Cost;
 
-        ui.Set(cost);
+        ui.SetCost(cost);
     }
 
     private void OnUpgradeButtonClick(UpgradeType upgradeType)
