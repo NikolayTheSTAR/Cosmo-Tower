@@ -12,13 +12,13 @@ public class GameWorld : MonoBehaviour
 
     public Tower Tower => battle.Tower;
 
-    public void Init(List<IHpReactable> hrs)
+    public void Init(List<IHpReactable> hrs, List<IWaveReactable> wrs)
     {
         gameController.StartBattleEvent += ActivateContent;
         gameController.ExitBattleEvent += DeactivateContent;
         gameController.BattleLostEvent += DeactivateContent;
 
-        battle.Init(hrs);
+        battle.Init(hrs, wrs);
     }
 
     private void ActivateContent()

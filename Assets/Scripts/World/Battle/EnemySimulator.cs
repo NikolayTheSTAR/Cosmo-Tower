@@ -15,8 +15,8 @@ public class EnemySimulator : MonoBehaviour
     private List<Enemy> enemiesPool = new ();
     private List<Enemy> activeEnemies = new ();
     private bool _isSimulate = false;
-    private float _spawnPeriodMin = 1f; // 0.25
-    private float _spawnPeriodMax = 5f; // 3
+    private float _spawnPeriodMin = 0.25f;
+    private float _spawnPeriodMax = 3;
     private float _spawnDistance = 5f;
     private TimeCycleControl _spawnControl;
     private Transform _enemyGoal;

@@ -18,9 +18,9 @@ MonoBehaviour:
     levels:
     - cost: 0
       value: 3
-    - cost: 5
-      value: 6
     - cost: 10
+      value: 6
+    - cost: 12
       value: 9
     - cost: 14
       value: 12

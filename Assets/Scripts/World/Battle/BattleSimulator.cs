@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using TheSTAR.Data;
+using TheSTAR.Utility;
 
 public class BattleSimulator : MonoBehaviour
 {
@@ -14,16 +15,21 @@ public class BattleSimulator : MonoBehaviour
     [Inject] private readonly CurrencyController currencyController;
     [Inject] private readonly UpgradeController upgradeController;
 
+    private BattleWaves waves;
+
     public Tower Tower => tower;
 
-    public void Init(List<IHpReactable> hrs)
+    public void Init(List<IHpReactable> hrs, List<IWaveReactable> wrs)
     {
+        waves = new(wrs);
         tower.Init(hrs, bulletsContainer.Shoot, gameController.BattleLost);
         enemySimulator.Init(tower.Damage);
     }
 
     public void StartBattle()
     {
+        waves.StartSimulate();
+
         tower.Reset();
         currencyController.ClearCurrency(CurrencyType.Coin);
         upgradeController.ResetUpgrades();
@@ -34,6 +40,7 @@ public class BattleSimulator : MonoBehaviour
 
     public void StopBattle()
     {
+        waves.StopSimulate();
         enemySimulator.StopSimulate();
         bulletsContainer.StopSimulate();
     }

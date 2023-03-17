@@ -5,7 +5,7 @@ public class Enemy : MonoBehaviour
 {
     private float _force = 1;
     private int _cost = 1;
-    private float _maxHp = 9f; // 2.3f
+    private float _maxHp = 2.3f;
     private HpOwner _hpOwner;
     private MovableToGoal _movableToGoal;
 

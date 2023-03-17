@@ -7,7 +7,7 @@ using TMPro;
 
 namespace TheSTAR.GUI.Screens
 {
-    public class GameScreen : GuiScreen, ITransactionReactable, IUpgradeReactable, IHpReactable
+    public class GameScreen : GuiScreen, ITransactionReactable, IUpgradeReactable, IHpReactable, IWaveReactable
     {
         [SerializeField] private PointerButton exitButton;
         [SerializeField] private CanvasGroup canvasGroup;
@@ -16,6 +16,7 @@ namespace TheSTAR.GUI.Screens
 
         [Header("Panels")]
         [SerializeField] private TowerStatsPanel towerStatsPanel;
+        [SerializeField] private WaveStatsPanel waveStatsPanel;
         [SerializeField] private UpgradePanel upgradePanel;
 
         private Sound.SoundController _sound;
@@ -70,6 +71,9 @@ namespace TheSTAR.GUI.Screens
         }
 
         public void OnChangeHpReact(HpOwner hpOwner) => towerStatsPanel.OnChangeHpReact(hpOwner);
+
+        public void OnSetWaveProgress(float progress) => waveStatsPanel.OnSetWaveProgress(progress);
+        public void OnStartWave(int waveIndex, BattlePhaseType battlePhaseType) => waveStatsPanel.OnStartWave(waveIndex, battlePhaseType);
 
         #endregion
     }
