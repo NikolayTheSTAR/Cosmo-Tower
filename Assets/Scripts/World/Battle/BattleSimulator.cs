@@ -21,10 +21,12 @@ public class BattleSimulator : MonoBehaviour
     {
         tower.Reset();
         enemySimulator.StartSimulate(tower.transform);
+        bulletsContainer.StartSimulate();
     }
 
     public void StopBattle()
     {
         enemySimulator.StopSimulate();
+        bulletsContainer.StopSimulate();
     }
 }

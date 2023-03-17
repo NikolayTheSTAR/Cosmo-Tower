@@ -26,6 +26,8 @@ public class EnemySimulator : MonoBehaviour
 
     public void StartSimulate(Transform goal)
     {
+        if (_isSimulate) return;
+
         _enemyGoal = goal;
 
         _isSimulate = true;
@@ -76,7 +78,7 @@ public class EnemySimulator : MonoBehaviour
         Enemy Create()
         {
             var e = Instantiate(enemyPrefab, pos, Quaternion.identity, enemyParent);
-            e.Init(OnEnemyReachedGoal);
+            e.Init(OnEnemyReachedGoal, OnEnemyDead);
             enemiesPool.Add(e);
             return e;
         }
@@ -95,11 +97,11 @@ public class EnemySimulator : MonoBehaviour
 
     private void OnEnemyReachedGoal(Enemy e)
     {
-        activeEnemies.Remove(e);
-        e.gameObject.SetActive(false);
-
         _attackAction?.Invoke(e.Force);
+        e.Die();
     }
+
+    private void OnEnemyDead(Enemy e) => activeEnemies.Remove(e);
 
     private void HideEnemies()
     {

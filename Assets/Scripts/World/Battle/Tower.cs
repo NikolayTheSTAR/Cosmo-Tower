@@ -10,7 +10,7 @@ public class Tower : MonoBehaviour
     public void Init(Action<Shooter, HpOwner, float> ShootAction, Action OnTowerDestroyed)
     {
         hpOwner = new(transform, 5, OnTowerDestroyed);
-        autoShooter = new(1, 1);
+        autoShooter = new(transform, 1, 1);
 
         autoShooter.ShootEvent += ShootAction;
     }

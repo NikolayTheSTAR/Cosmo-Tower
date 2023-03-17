@@ -9,7 +9,6 @@ public class GameWorld : MonoBehaviour
     [SerializeField] private Animation contentAnim;
     [SerializeField] private BattleSimulator battle;
     
-
     [Inject] private readonly GameController gameController;
 
     public void Init()

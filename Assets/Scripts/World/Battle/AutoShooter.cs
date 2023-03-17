@@ -10,7 +10,7 @@ public class AutoShooter : Shooter
     private bool _isSimulate;
     private AutoShooterStatus _status;
 
-    public AutoShooter(float period, float force) : base (force)
+    public AutoShooter(Transform transform, float period, float force) : base (transform, force)
     {
         _status = AutoShooterStatus.ReadyToShoot;
         _period = period;
