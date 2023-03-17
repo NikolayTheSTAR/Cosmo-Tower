@@ -16,7 +16,7 @@ public class BulletsContainer : MonoBehaviour
     {
         Bullet bullet = PoolUtility.GetPoolObject(_bulletsPool, info => !info.gameObject.activeSelf, shooter.Transform.position, CreateNewBullet);
 
-        bullet.Init(1, goal, OnBulletReachedGoal);
+        bullet.Init(force, goal, OnBulletReachedGoal);
         _activeBullets.Add(bullet);
 
         Bullet CreateNewBullet(Vector2 pos)
@@ -39,6 +39,9 @@ public class BulletsContainer : MonoBehaviour
         if (!_isSimulate) return;
 
         _isSimulate = false;
+        HideBullets();
+
+        _activeBullets.Clear();
     }
 
     private void Update()
@@ -55,5 +58,10 @@ public class BulletsContainer : MonoBehaviour
     private void OnBulletReachedGoal(Bullet b)
     {
         _activeBullets.Remove(b);
+    }
+
+    private void HideBullets()
+    {
+        foreach (var b in _bulletsPool) b.gameObject.SetActive(false);
     }
 }
