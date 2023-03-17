@@ -2575,6 +2575,9 @@ MonoBehaviour:
   gameData:
     isMusicOn: 0
     isSoundsOn: 0
+    waveRecordIndex: 0
+    battleData:
+      currentWaveIndex: 0
   clearData: 0
 --- !u!114 &700956369
 MonoBehaviour:
@@ -5152,7 +5155,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Highest Wave: 6'
+  m_text: 'Highest Wave: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5632,7 +5635,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Wave 2
+  m_text: 'Wave: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6702,6 +6705,8 @@ MonoBehaviour:
   canvasGroup: {fileID: 1528309919}
   restartButton: {fileID: 1787429935}
   exitButton: {fileID: 1019477942}
+  currentWaveTitle: {fileID: 1375462234}
+  maxWaveTitle: {fileID: 1179703362}
 --- !u!1 &1542550303
 GameObject:
   m_ObjectHideFlags: 0

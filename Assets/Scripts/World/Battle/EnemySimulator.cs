@@ -4,6 +4,7 @@ using UnityEngine;
 using TheSTAR.Utility;
 using Random = UnityEngine.Random;
 using Zenject;
+using TheSTAR.Data;
 
 public class EnemySimulator : MonoBehaviour, IWaveReactable
 {

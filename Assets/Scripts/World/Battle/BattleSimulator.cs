@@ -11,6 +11,7 @@ public class BattleSimulator : MonoBehaviour
     [SerializeField] private EnemySimulator enemySimulator;
     [SerializeField] private BulletsContainer bulletsContainer;
 
+    [Inject] private readonly DataController dataController;
     [Inject] private readonly GameController gameController;
     [Inject] private readonly CurrencyController currencyController;
     [Inject] private readonly UpgradeController upgradeController;
@@ -22,7 +23,7 @@ public class BattleSimulator : MonoBehaviour
     public void Init(List<IHpReactable> hrs, List<IWaveReactable> wrs)
     {
         wrs.Add(enemySimulator);
-        waves = new(wrs);
+        waves = new(dataController, wrs);
         enemySimulator.Init(tower.Damage);
         tower.Init(hrs, bulletsContainer.Shoot, gameController.BattleLost);
     }

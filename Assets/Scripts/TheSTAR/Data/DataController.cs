@@ -57,6 +57,7 @@ namespace TheSTAR.Data
         {
             public bool isMusicOn = true;
             public bool isSoundsOn = true;
+            public int waveRecordIndex = 0;
 
             public BattleData battleData = new();
 
@@ -68,6 +69,7 @@ namespace TheSTAR.Data
         {
             public Dictionary<CurrencyType, int> currencyData = new();
             public TowerUpgradeData towerUpgradeData = new();
+            public int currentWaveIndex = 0;
 
             public void AddCurrency(CurrencyType currencyType, int count, out int result)
             {

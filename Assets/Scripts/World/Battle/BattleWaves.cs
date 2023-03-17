@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using TheSTAR.Data;
 
 [Serializable]
 public class BattleWaves
@@ -23,8 +24,11 @@ public class BattleWaves
     private int _counterLTID = -1;
     private bool _isSimulate = false;
 
-    public BattleWaves(List<IWaveReactable> waveReactables)
+    private DataController _data;
+
+    public BattleWaves(DataController data, List<IWaveReactable> waveReactables)
     {
+        _data = data;
         _waveReactables = waveReactables;
     }
 
@@ -63,6 +67,8 @@ public class BattleWaves
         {
             _waveIndex++;
             phaseTime = BattleConfig.WavesData.AttackPhaseTime;
+
+            _data.gameData.battleData.currentWaveIndex = _waveIndex;
         }
         else phaseTime = BattleConfig.WavesData.RestPhaseTime;
 

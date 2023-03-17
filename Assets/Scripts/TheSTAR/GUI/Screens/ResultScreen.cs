@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TheSTAR.Utility.Pointer;
+using TMPro;
 
 namespace TheSTAR.GUI.Screens
 {
@@ -10,15 +11,19 @@ namespace TheSTAR.GUI.Screens
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private PointerButton restartButton;
         [SerializeField] private PointerButton exitButton;
+        [SerializeField] private TextMeshProUGUI currentWaveTitle;
+        [SerializeField] private TextMeshProUGUI maxWaveTitle;
 
-        private Sound.SoundController _sound;
-
-        public void Init(Sound.SoundController sound, Action restartAction, Action exitAction)
+        public void Init(Action restartAction, Action exitAction)
         {
-            _sound = sound;
-
             restartButton.Init(restartAction);
             exitButton.Init(exitAction);
+        }
+
+        public void SetWavesData(int currentWaveIndex, int maxWaveIndex)
+        {
+            currentWaveTitle.text = $"Wave: {currentWaveIndex + 1}";
+            maxWaveTitle.text = $"Highest Wave: {maxWaveIndex + 1}";
         }
 
         protected override void AnimateShow(out int time)

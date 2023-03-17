@@ -19,6 +19,7 @@ namespace TheSTAR.GUI
 
         #endregion // Inspector
 
+        [Inject] private readonly Data.DataController data;
         [Inject] private readonly Sound.SoundController sound;
         [Inject] private readonly GameController gameController;
         [Inject] private readonly GameWorld world;
@@ -68,7 +69,7 @@ namespace TheSTAR.GUI
             });
 
             var result = FindScreen<ResultScreen>();
-            result.Init(sound, gameController.StartBattle, gameController.ExitBattle);
+            result.Init(gameController.StartBattle, gameController.ExitBattle);
 
             if (showMainScreenByStart && mainScreen != null) Show(mainScreen, false);
 
@@ -78,8 +79,15 @@ namespace TheSTAR.GUI
             gameController.ExitBattleEvent += () => Show<MenuScreen>(true);
             gameController.BattleLostEvent += () =>
             {
+                data.gameData.waveRecordIndex = Math.Max(data.gameData.waveRecordIndex, data.gameData.battleData.currentWaveIndex);
                 sound.StopMusic(Sound.MusicChangeType.Volume);
-                HideCurrentScreen(() => Show<ResultScreen>());
+
+                HideCurrentScreen(() =>
+                {
+                    var resultScreen = FindScreen<ResultScreen>();
+                    resultScreen.SetWavesData(data.gameData.battleData.currentWaveIndex, data.gameData.waveRecordIndex);
+                    Show(resultScreen);
+                });
             };
         }
 
