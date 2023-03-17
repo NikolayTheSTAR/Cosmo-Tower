@@ -49,13 +49,17 @@ public class HpOwner
     {
         _currentHp -= force;
 
-        onChangeHpAction?.Invoke();
+        bool die = false;
 
         if (_currentHp <= 0)
         {
             _currentHp = 0;
-            Die();
+            die = true;
         }
+
+        onChangeHpAction?.Invoke();
+
+        if (die) Die();
     }
 
     private void Die() => onDeadAction?.Invoke();

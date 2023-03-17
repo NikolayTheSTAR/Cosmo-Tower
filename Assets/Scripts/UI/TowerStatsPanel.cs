@@ -12,7 +12,10 @@ public class TowerStatsPanel : MonoBehaviour, IUpgradeReactable, IHpReactable
     public void OnChangeHpReact(HpOwner hpOwner)
     {
         hpBar.SetHp(hpOwner.CurrentHp, hpOwner.MaxHp);
-        hpCounter.text = $"{hpOwner.CurrentHp}/{hpOwner.MaxHp}";
+
+        float formatCurrentHp = Mathf.Floor(hpOwner.CurrentHp * 10)/10;
+
+        hpCounter.text = $"{formatCurrentHp}/{hpOwner.MaxHp}";
     }
 
     public void OnUpgradeReact(UpgradeType upgradeType, float value)
