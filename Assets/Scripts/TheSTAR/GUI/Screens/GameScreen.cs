@@ -11,7 +11,9 @@ namespace TheSTAR.GUI.Screens
     {
         [SerializeField] private PointerButton exitButton;
         [SerializeField] private CanvasGroup canvasGroup;
-        [SerializeField] private TextMeshProUGUI _coinsCounter;
+        [SerializeField] private TextMeshProUGUI coinsCounter;
+        [SerializeField] private PointerButton showHideUpgradesButton;
+        [SerializeField] private UpgradePanel upgradePanel;
 
         private Sound.SoundController _sound;
 
@@ -20,6 +22,8 @@ namespace TheSTAR.GUI.Screens
             _sound = sound;
 
             exitButton.Init(exitAction);
+
+            showHideUpgradesButton.Init(OnShowHideUpgradesButtonClick);
         }
 
         protected override void AnimateShow(out int time)
@@ -40,7 +44,12 @@ namespace TheSTAR.GUI.Screens
 
         public void OnTransactionReact(CurrencyType itemType, int finalValue)
         {
-            _coinsCounter.text = $"$ {finalValue}";
+            coinsCounter.text = $"$ {finalValue}";
+        }
+
+        private void OnShowHideUpgradesButtonClick()
+        {
+            upgradePanel.gameObject.SetActive(!upgradePanel.gameObject.activeSelf);
         }
     }
 }
