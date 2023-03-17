@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheSTAR.Utility;
 using Random = UnityEngine.Random;
+using Zenject;
 
 public class EnemySimulator : MonoBehaviour
 {
     [SerializeField] private Enemy enemyPrefab;
     [SerializeField] private Transform enemyParent;
+
+    [Inject] private CurrencyController currencyController;
     
     private List<Enemy> enemiesPool = new ();
     private List<Enemy> activeEnemies = new ();
@@ -84,7 +87,12 @@ public class EnemySimulator : MonoBehaviour
         e.Die();
     }
 
-    private void OnEnemyDead(Enemy e) => activeEnemies.Remove(e);
+    private void OnEnemyDead(Enemy e)
+    {
+        activeEnemies.Remove(e);
+
+        currencyController.AddCurrency(CurrencyType.Coin, e.Cost);
+    }
 
     private void HideEnemies()
     {

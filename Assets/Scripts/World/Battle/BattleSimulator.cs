@@ -10,6 +10,7 @@ public class BattleSimulator : MonoBehaviour
     [SerializeField] private BulletsContainer bulletsContainer;
 
     [Inject] private readonly GameController gameController;
+    [Inject] private readonly CurrencyController currencyController;
 
     public void Init()
     {
@@ -22,6 +23,7 @@ public class BattleSimulator : MonoBehaviour
         tower.Reset();
         enemySimulator.StartSimulate(tower.transform);
         bulletsContainer.StartSimulate();
+        currencyController.ClearCurrency(CurrencyType.Coin);
     }
 
     public void StopBattle()

@@ -4,11 +4,13 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private float _force = 1;
+    private int _cost = 1;
     private HpOwner _hpOwner;
     private MovableToGoal _movableToGoal;
 
     public float Force => _force;
     public HpOwner HpOwner => _hpOwner;
+    public int Cost => _cost;
 
     private Action<Enemy> _onDeadAction;
 

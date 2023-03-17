@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using TheSTAR.Utility.Pointer;
 using UnityEngine;
 using TheSTAR.GUI;
+using TMPro;
 
 namespace TheSTAR.GUI.Screens
 {
-    public class GameScreen : GuiScreen
+    public class GameScreen : GuiScreen, ITransactionReactable
     {
         [SerializeField] private PointerButton exitButton;
         [SerializeField] private CanvasGroup canvasGroup;
+        [SerializeField] private TextMeshProUGUI _coinsCounter;
 
         private Sound.SoundController _sound;
-
-        //public event Action AnimateExitGameEvent;
-        //public event Action DoExitGameEvent;
 
         public void Init(Sound.SoundController sound, Action exitAction)
         {
@@ -38,5 +37,10 @@ namespace TheSTAR.GUI.Screens
         }
 
         protected override void OnShow() => _sound.PlayMusic(Sound.MusicType.BattleTheme);
+
+        public void OnTransactionReact(CurrencyType itemType, int finalValue)
+        {
+            _coinsCounter.text = $"$ {finalValue}";
+        }
     }
 }

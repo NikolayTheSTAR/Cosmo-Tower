@@ -351,6 +351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   exitButton: {fileID: 718428026}
   canvasGroup: {fileID: 46848182}
+  _coinsCounter: {fileID: 121600248}
 --- !u!225 &46848182
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -740,7 +741,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 250992745}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1507,6 +1508,7 @@ GameObject:
   - component: {fileID: 700956367}
   - component: {fileID: 700956366}
   - component: {fileID: 700956368}
+  - component: {fileID: 700956369}
   - component: {fileID: 700956365}
   m_Layer: 0
   m_Name: Controllers
@@ -1546,6 +1548,7 @@ MonoBehaviour:
   - {fileID: 700956366}
   - {fileID: 700956368}
   - {fileID: 700956367}
+  - {fileID: 700956369}
   _identifier: 
   _useSceneContext: 0
   _context: {fileID: 0}
@@ -1592,6 +1595,18 @@ MonoBehaviour:
     isMusicOn: 0
     isSoundsOn: 0
   clearData: 0
+--- !u!114 &700956369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700956363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14367e68c8773445186d92adfe8e8b22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &718428024
 GameObject:
   m_ObjectHideFlags: 0

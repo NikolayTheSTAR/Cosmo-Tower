@@ -1,8 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using Sirenix.OdinInspector;
-//using TheSTAR.Utility;
 using UnityEngine.Serialization;
 
 namespace TheSTAR.Data
@@ -10,10 +10,6 @@ namespace TheSTAR.Data
     public sealed class DataController : MonoBehaviour
     {
         private const string GameDataFileName = "game_data.json";
-        private string ProfileDataFileName(int profileIndex)
-        {
-            return $"profile_{profileIndex.ToString()}.json";
-        }
 
         public GameData gameData = new();
 
@@ -30,11 +26,6 @@ namespace TheSTAR.Data
         #endregion
 
         private string GameDataPath => Path.Combine(Application.persistentDataPath, GameDataFileName);
-        public string ProfileDataPath(int profileIndex)
-        {
-            string value = Path.Combine(Application.persistentDataPath, ProfileDataFileName(profileIndex));
-            return value;
-        }
         
         [ContextMenu("Save")]
         public void Save()
@@ -80,6 +71,28 @@ namespace TheSTAR.Data
         {
             public bool isMusicOn = true;
             public bool isSoundsOn = true;
+
+            public BattleData battleData = new();
+        }
+
+        [Serializable]
+        public class BattleData
+        {
+            public Dictionary<CurrencyType, int> currencyData = new();
+
+            public void AddCurrency(CurrencyType currencyType, int count, out int result)
+            {
+                if (currencyData.ContainsKey(currencyType)) currencyData[currencyType] += count;
+                else currencyData.Add(currencyType, count);
+
+                result = currencyData[currencyType];
+            }
+
+            public int GetCurrencyCount(CurrencyType currencyType)
+            {
+                if (currencyData.ContainsKey(currencyType)) return currencyData[currencyType];
+                else return 0;
+            }
         }
     }
 }

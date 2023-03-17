@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     [Inject] private readonly SoundController sounds;
     [Inject] private readonly GuiController gui;
     [Inject] private readonly GameWorld world;
+    [Inject] private readonly CurrencyController currency;
 
     public event Action StartBattleEvent;
     public event Action ExitBattleEvent;
@@ -24,8 +25,9 @@ public class GameController : MonoBehaviour
     private void Init()
     {
         sounds.Init();
-        gui.Init();
+        gui.Init(out var trs);
         world.Init();
+        currency.Init(trs);
     }
 
     public void StartBattle() => StartBattleEvent?.Invoke();

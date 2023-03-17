@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using TheSTAR.Utility;
 using UnityEngine.Serialization;
@@ -24,8 +25,9 @@ namespace TheSTAR.GUI
 
         private GuiScreen currentScreen;
 
-        public void Init()
+        public void Init(out List<ITransactionReactable> trs)
         {
+            trs = new();
             for (int i = 0; i < screens.Length; i++)
             {
                 var screen = screens[i];
@@ -33,6 +35,8 @@ namespace TheSTAR.GUI
                 if (screen == null) continue;
 
                 if (deactivateOtherScreensByStart && screen.gameObject.activeSelf) screen.gameObject.SetActive(false);
+
+                if (screen is ITransactionReactable tr) trs.Add(tr);
             }
 
             var menu = FindScreen<MenuScreen>();
