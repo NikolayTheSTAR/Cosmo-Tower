@@ -20,7 +20,19 @@ public class BattleWavesData
     [LabelText("restPhaseTime (s)")]
     [SerializeField] private float restPhaseTime;
 
+    [SerializeField] private BattleWaveData[] waveDatas = new BattleWaveData[0];
+
     public float AttackPhaseTime => attackPhaseTime;
     public float RestPhaseTime => restPhaseTime;
+    public BattleWaveData[] WaveDatas => waveDatas;
+}
 
+[Serializable]
+public class BattleWaveData
+{
+    [SerializeField] private float enemyForce;
+    [SerializeField] private float enemyHp;
+
+    public float EnemyForce => enemyForce;
+    public float EnemyHp => enemyHp;
 }

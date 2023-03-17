@@ -19,15 +19,24 @@ public class HpOwner
     private Transform transform;
     public Transform Transform => transform;
 
-    public HpOwner(Transform transform, float maxHp, Action onChangeHpAction, Action onDeadAction)
+    public HpOwner(Transform transform, Action onChangeHpAction, Action onDeadAction)
     {
         this.transform = transform;
-        this._maxHp = maxHp;
-        _currentHp = maxHp;
         _status = HpOwnerStatus.Alive;
 
         this.onChangeHpAction = onChangeHpAction;
         this.onDeadAction = onDeadAction;
+    }
+
+    public HpOwner(Transform transform, float maxHp, Action onChangeHpAction, Action onDeadAction) : this(transform, onChangeHpAction, onDeadAction)
+    {
+        this._maxHp = maxHp;
+        _currentHp = maxHp;
+    }
+
+    public void SetMaxHp(float value)
+    {
+        _maxHp = value;
     }
 
     public void Reset()

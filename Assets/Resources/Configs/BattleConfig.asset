@@ -15,3 +15,26 @@ MonoBehaviour:
   wavesData:
     attackPhaseTime: 25
     restPhaseTime: 10
+    waveDatas:
+    - enemyForce: 1.18
+      enemyHp: 2.35
+    - enemyForce: 1.39
+      enemyHp: 3.31
+    - enemyForce: 1.64
+      enemyHp: 4.39
+    - enemyForce: 1.93
+      enemyHp: 5.59
+    - enemyForce: 2.3
+      enemyHp: 7.2
+    - enemyForce: 2.68
+      enemyHp: 8.71
+    - enemyForce: 3.1
+      enemyHp: 10.36
+    - enemyForce: 3.55
+      enemyHp: 12
+    - enemyForce: 3.9
+      enemyHp: 15
+    - enemyForce: 4.5
+      enemyHp: 19
+    - enemyForce: 5
+      enemyHp: 25

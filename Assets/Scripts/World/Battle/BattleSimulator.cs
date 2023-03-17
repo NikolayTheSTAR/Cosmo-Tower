@@ -21,9 +21,10 @@ public class BattleSimulator : MonoBehaviour
 
     public void Init(List<IHpReactable> hrs, List<IWaveReactable> wrs)
     {
+        wrs.Add(enemySimulator);
         waves = new(wrs);
+        enemySimulator.Init(waves, tower.Damage);
         tower.Init(hrs, bulletsContainer.Shoot, gameController.BattleLost);
-        enemySimulator.Init(tower.Damage);
     }
 
     public void StartBattle()

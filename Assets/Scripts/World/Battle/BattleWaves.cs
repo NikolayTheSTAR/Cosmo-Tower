@@ -79,6 +79,8 @@ public class BattleWaves
             StartPhase(phaseType == BattlePhaseType.Attack ? BattlePhaseType.Rest : BattlePhaseType.Attack);
         }).id;
     }
+
+    public BattleWaveData GetCurrentWaveData() => BattleConfig.WavesData.WaveDatas[_waveIndex];
 }
 
 public enum BattlePhaseType

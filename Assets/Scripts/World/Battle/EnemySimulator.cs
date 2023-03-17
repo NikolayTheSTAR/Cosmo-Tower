@@ -5,25 +5,31 @@ using TheSTAR.Utility;
 using Random = UnityEngine.Random;
 using Zenject;
 
-public class EnemySimulator : MonoBehaviour
+public class EnemySimulator : MonoBehaviour, IWaveReactable
 {
     [SerializeField] private Enemy enemyPrefab;
     [SerializeField] private Transform enemyParent;
 
     [Inject] private CurrencyController currencyController;
-    
-    private List<Enemy> enemiesPool = new ();
-    private List<Enemy> activeEnemies = new ();
+
     private bool _isSimulate = false;
+    private bool _isPausedForRest = false;
     private float _spawnPeriodMin = 0.25f;
     private float _spawnPeriodMax = 3;
     private float _spawnDistance = 5f;
+    private float _enemyForceForWave;
+    private float _enemyHpForWave;
+
+    private List<Enemy> enemiesPool = new ();
+    private List<Enemy> activeEnemies = new ();
     private TimeCycleControl _spawnControl;
     private Transform _enemyGoal;
     private Action<float> _attackAction;
+    private BattleWaves _waves;
 
-    public void Init(Action<float> attackAction)
+    public void Init(BattleWaves waves, Action<float> attackAction)
     {
+        _waves = waves;
         _attackAction = attackAction;
     }
 
@@ -52,13 +58,14 @@ public class EnemySimulator : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        if (!_isSimulate) return;
+        if (!_isSimulate || _isPausedForRest) return;
 
         Vector2 spawnPos =
             transform.position +
             (new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * _spawnDistance);
+
         var enemy = PoolUtility.GetPoolObject(enemiesPool, info => !info.gameObject.activeSelf, spawnPos, CreateNewEnemy);
-        enemy.Reset();
+        enemy.SetStats(_enemyForceForWave, _enemyHpForWave);
         activeEnemies.Add(enemy);
 
         Enemy CreateNewEnemy(Vector2 pos)
@@ -97,5 +104,30 @@ public class EnemySimulator : MonoBehaviour
     private void HideEnemies()
     {
         foreach (var e in enemiesPool) e.gameObject.SetActive(false);
+    }
+
+    public void OnSetWaveProgress(float progress)
+    {
+    }
+
+    public void OnStartWave(int waveIndex, BattlePhaseType battlePhaseType)
+    {
+        switch (battlePhaseType)
+        {
+            case BattlePhaseType.Attack:
+
+                var waveData = _waves.GetCurrentWaveData();
+                _enemyForceForWave = waveData.EnemyForce;
+                _enemyHpForWave = waveData.EnemyHp;
+
+                if (!_isPausedForRest) return;
+                _isPausedForRest = false;
+                break;
+
+            case BattlePhaseType.Rest:
+                if (_isPausedForRest) return;
+                _isPausedForRest = true;
+                break;
+        }
     }
 }
