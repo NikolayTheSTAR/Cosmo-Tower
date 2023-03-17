@@ -1,20 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TheSTAR.Utility;
 
 public class BulletsContainer : MonoBehaviour
 {
     [SerializeField] private Bullet bulletPrefab;
 
     private List<Bullet> _activeBullets = new ();
+    private List<Bullet> _bulletsPool = new ();
 
     private bool _isSimulate = false;
 
     public void Shoot(Shooter shooter, HpOwner goal, float force)
     {
-        var bullet = Instantiate(bulletPrefab, shooter.Transform.position, Quaternion.identity, transform);
+        Bullet bullet = PoolUtility.GetPoolObject(_bulletsPool, info => !info.gameObject.activeSelf, shooter.Transform.position, CreateNewBullet);
+
         bullet.Init(1, goal, OnBulletReachedGoal);
         _activeBullets.Add(bullet);
+
+        Bullet CreateNewBullet(Vector2 pos)
+        {
+            var bullet = Instantiate(bulletPrefab, shooter.Transform.position, Quaternion.identity, transform);
+            _bulletsPool.Add(bullet);
+            return bullet;
+        }
     }
 
     public void StartSimulate()

@@ -40,7 +40,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: ArenaCircle
+    path: Battle/ArenaCircle
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -65,7 +65,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Tower
+    path: Battle/Tower
   m_FloatCurves: []
   m_PPtrCurves: []
   m_SampleRate: 60
@@ -122,7 +122,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.x
-    path: ArenaCircle
+    path: Battle/ArenaCircle
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -150,7 +150,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.y
-    path: ArenaCircle
+    path: Battle/ArenaCircle
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -169,7 +169,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.z
-    path: ArenaCircle
+    path: Battle/ArenaCircle
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -197,7 +197,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.x
-    path: Tower
+    path: Battle/Tower
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -225,7 +225,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.y
-    path: Tower
+    path: Battle/Tower
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -253,7 +253,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalScale.z
-    path: Tower
+    path: Battle/Tower
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves: []

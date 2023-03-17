@@ -54,28 +54,11 @@ public class EnemySimulator : MonoBehaviour
         Vector2 spawnPos =
             transform.position +
             (new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * _spawnDistance);
-        var enemy = GetEnemyObject(spawnPos);
+        var enemy = PoolUtility.GetPoolObject(enemiesPool, info => !info.gameObject.activeSelf, spawnPos, CreateNewEnemy);
 
         activeEnemies.Add(enemy);
-    }
 
-    private Enemy GetEnemyObject(Vector2 pos)
-    {
-        if (enemiesPool.Count == 0) return Create();
-        else
-        {
-            var e = enemiesPool.Find(info => !info.gameObject.activeSelf);
-
-            if (e == null) return Create();
-            else
-            {
-                e.transform.position = pos;
-                e.gameObject.SetActive(true);
-                return e;
-            }
-        }
-
-        Enemy Create()
+        Enemy CreateNewEnemy(Vector2 pos)
         {
             var e = Instantiate(enemyPrefab, pos, Quaternion.identity, enemyParent);
             e.Init(OnEnemyReachedGoal, OnEnemyDead);
