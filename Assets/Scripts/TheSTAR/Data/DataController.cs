@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using Sirenix.OdinInspector;
-using UnityEngine.Serialization;
+using Newtonsoft;
+using Newtonsoft.Json;
 
 namespace TheSTAR.Data
 {
@@ -30,9 +30,8 @@ namespace TheSTAR.Data
         [ContextMenu("Save")]
         public void Save()
         {
-            SerializationToJson(out GameData newData);
-
-            string jsonString = JsonUtility.ToJson(newData, true);
+            JsonSerializerSettings settings = new() { TypeNameHandling = TypeNameHandling.Objects };
+            string jsonString = JsonConvert.SerializeObject(gameData, Formatting.Indented, settings);
             File.WriteAllText(GameDataPath, jsonString);
         }
 
@@ -42,8 +41,7 @@ namespace TheSTAR.Data
             if (File.Exists(GameDataPath))
             {
                 string jsonString = File.ReadAllText(GameDataPath);
-                GameData newData = JsonUtility.FromJson<GameData>(jsonString);
-                DeserializationFromJson(newData);
+                gameData = JsonConvert.DeserializeObject<GameData>(jsonString, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Objects });
             }
             else LoadDefault();
         }
@@ -52,18 +50,6 @@ namespace TheSTAR.Data
         private void LoadDefault()
         {        
             gameData = new();
-        }
-
-        // Запись данных
-        private void SerializationToJson(out GameData newGameData)
-        {
-            newGameData = gameData;
-        }
-
-        // Чтение данных
-        private void DeserializationFromJson(GameData fileGameData)
-        {
-            gameData = fileGameData;
         }
         
         [Serializable]
