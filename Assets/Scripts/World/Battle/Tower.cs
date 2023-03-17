@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Tower : MonoBehaviour, IUpgradeReactable
@@ -7,12 +8,19 @@ public class Tower : MonoBehaviour, IUpgradeReactable
     [SerializeField] private Transform arenaCircleTran;
 
     private float defaultRadius = 1.5f;
+    private float defaultHp = 5;
     private HpOwner hpOwner;
     private AutoShooter autoShooter;
 
-    public void Init(Action<Shooter, HpOwner, float> ShootAction, Action OnTowerDestroyed)
+    private List<IHpReactable> _playerChangeHpReactables;
+
+    public void Init(List<IHpReactable> hrs, Action<Shooter, HpOwner, float> ShootAction, Action OnTowerDestroyed)
     {
-        hpOwner = new(transform, 5, OnTowerDestroyed);
+        _playerChangeHpReactables = hrs;
+        hpOwner = new(transform, defaultHp, () =>
+        {
+            foreach (var dr in _playerChangeHpReactables) dr.OnChangeHpReact(hpOwner);
+        }, OnTowerDestroyed);
         autoShooter = new(transform);
         autoShooter.ShootEvent += ShootAction;
     }

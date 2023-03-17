@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
 
     public void Init(Action<Enemy> goalReachedAction, Action<Enemy> deadAction)
     {
-        _hpOwner = new(transform, _maxHp, Die);
+        _hpOwner = new(transform, _maxHp, null, Die);
         _movableToGoal = new(transform, Speed, 0.25f, () => goalReachedAction?.Invoke(this));
         _onDeadAction = deadAction;
     }

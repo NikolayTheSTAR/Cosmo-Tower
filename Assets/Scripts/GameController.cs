@@ -26,8 +26,8 @@ public class GameController : MonoBehaviour
     private void Init()
     {
         sounds.Init();
-        gui.Init(out var trs, out var urs);
-        world.Init();
+        gui.Init(out var trs, out var urs, out var hrs);
+        world.Init(hrs);
         urs.Add(world.Tower);
 
         currency.Init(trs);

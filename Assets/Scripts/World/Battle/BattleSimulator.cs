@@ -16,9 +16,9 @@ public class BattleSimulator : MonoBehaviour
 
     public Tower Tower => tower;
 
-    public void Init()
+    public void Init(List<IHpReactable> hrs)
     {
-        tower.Init(bulletsContainer.Shoot, gameController.BattleLost);
+        tower.Init(hrs, bulletsContainer.Shoot, gameController.BattleLost);
         enemySimulator.Init(tower.Damage);
     }
 

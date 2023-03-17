@@ -7,12 +7,15 @@ using TMPro;
 
 namespace TheSTAR.GUI.Screens
 {
-    public class GameScreen : GuiScreen, ITransactionReactable, IUpgradeReactable
+    public class GameScreen : GuiScreen, ITransactionReactable, IUpgradeReactable, IHpReactable
     {
         [SerializeField] private PointerButton exitButton;
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private TextMeshProUGUI coinsCounter;
         [SerializeField] private PointerButton showHideUpgradesButton;
+
+        [Header("Panels")]
+        [SerializeField] private TowerStatsPanel towerStatsPanel;
         [SerializeField] private UpgradePanel upgradePanel;
 
         private Sound.SoundController _sound;
@@ -26,6 +29,8 @@ namespace TheSTAR.GUI.Screens
 
             showHideUpgradesButton.Init(OnShowHideUpgradesButtonClick);
         }
+
+        #region Anim
 
         protected override void AnimateShow(out int time)
         {
@@ -41,7 +46,16 @@ namespace TheSTAR.GUI.Screens
             time = (int)(AnimateTime * 1000);
         }
 
+        #endregion
+
         protected override void OnShow() => _sound.PlayMusic(Sound.MusicType.BattleTheme);
+
+        private void OnShowHideUpgradesButtonClick()
+        {
+            upgradePanel.gameObject.SetActive(!upgradePanel.gameObject.activeSelf);
+        }
+
+        #region Reacts
 
         public void OnTransactionReact(CurrencyType currencyType, int finalValue)
         {
@@ -49,11 +63,14 @@ namespace TheSTAR.GUI.Screens
             upgradePanel.OnTransactionReact(currencyType, finalValue);
         }
 
-        private void OnShowHideUpgradesButtonClick()
+        public void OnUpgradeReact(UpgradeType upgradeType, float value)
         {
-            upgradePanel.gameObject.SetActive(!upgradePanel.gameObject.activeSelf);
+            towerStatsPanel.OnUpgradeReact(upgradeType, value);
+            upgradePanel.OnUpgradeReact(upgradeType, value);
         }
 
-        public void OnUpgradeReact(UpgradeType upgradeType, float value) => upgradePanel.OnUpgradeReact(upgradeType, value);
+        public void OnChangeHpReact(HpOwner hpOwner) => towerStatsPanel.OnChangeHpReact(hpOwner);
+
+        #endregion
     }
 }

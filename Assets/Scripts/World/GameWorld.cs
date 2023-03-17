@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -11,13 +12,13 @@ public class GameWorld : MonoBehaviour
 
     public Tower Tower => battle.Tower;
 
-    public void Init()
+    public void Init(List<IHpReactable> hrs)
     {
         gameController.StartBattleEvent += ActivateContent;
         gameController.ExitBattleEvent += DeactivateContent;
         gameController.BattleLostEvent += DeactivateContent;
 
-        battle.Init();
+        battle.Init(hrs);
     }
 
     private void ActivateContent()

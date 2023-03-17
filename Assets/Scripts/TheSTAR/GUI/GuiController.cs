@@ -27,10 +27,11 @@ namespace TheSTAR.GUI
 
         private GuiScreen currentScreen;
 
-        public void Init(out List<ITransactionReactable> trs, out List<IUpgradeReactable> urs)
+        public void Init(out List<ITransactionReactable> trs, out List<IUpgradeReactable> urs, out List<IHpReactable> hrs)
         {
             trs = new();
             urs = new();
+            hrs = new();
 
             for (int i = 0; i < screens.Length; i++)
             {
@@ -42,6 +43,7 @@ namespace TheSTAR.GUI
 
                 if (screen is ITransactionReactable tr) trs.Add(tr);
                 if (screen is IUpgradeReactable ur) urs.Add(ur);
+                if (screen is IHpReactable hr) hrs.Add(hr);
             }
 
             var menu = FindScreen<MenuScreen>();
