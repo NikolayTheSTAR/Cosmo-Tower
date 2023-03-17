@@ -11,6 +11,8 @@ public class GameWorld : MonoBehaviour
     
     [Inject] private readonly GameController gameController;
 
+    public Tower Tower => battle.Tower;
+
     public void Init()
     {
         gameController.StartBattleEvent += ActivateContent;

@@ -7,7 +7,7 @@ using TMPro;
 
 namespace TheSTAR.GUI.Screens
 {
-    public class GameScreen : GuiScreen, ITransactionReactable
+    public class GameScreen : GuiScreen, ITransactionReactable, IUpgradeReactable
     {
         [SerializeField] private PointerButton exitButton;
         [SerializeField] private CanvasGroup canvasGroup;
@@ -17,11 +17,12 @@ namespace TheSTAR.GUI.Screens
 
         private Sound.SoundController _sound;
 
-        public void Init(Sound.SoundController sound, Action exitAction)
+        public void Init(UpgradeController upgrades, Sound.SoundController sound, Action exitAction)
         {
             _sound = sound;
 
             exitButton.Init(exitAction);
+            upgradePanel.Init(upgrades);
 
             showHideUpgradesButton.Init(OnShowHideUpgradesButtonClick);
         }
@@ -51,5 +52,7 @@ namespace TheSTAR.GUI.Screens
         {
             upgradePanel.gameObject.SetActive(!upgradePanel.gameObject.activeSelf);
         }
+
+        public void OnUpgradeReact(UpgradeType upgradeType, float value) => upgradePanel.OnUpgradeReact(upgradeType, value);
     }
 }

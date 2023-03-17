@@ -58,7 +58,7 @@ public class EnemySimulator : MonoBehaviour
             transform.position +
             (new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * _spawnDistance);
         var enemy = PoolUtility.GetPoolObject(enemiesPool, info => !info.gameObject.activeSelf, spawnPos, CreateNewEnemy);
-
+        enemy.Reset();
         activeEnemies.Add(enemy);
 
         Enemy CreateNewEnemy(Vector2 pos)

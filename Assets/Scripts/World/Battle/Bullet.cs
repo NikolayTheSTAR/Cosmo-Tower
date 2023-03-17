@@ -9,11 +9,13 @@ public class Bullet : MonoBehaviour
     private float _force;
     private Action<Bullet> endAction;
 
+    private const float Speed = 4;
+
     public void Init(float force, HpOwner goal, Action<Bullet> endAction)
     {
         _force = force;
         _goal = goal;
-        _movableToGoal = new(transform, 2, 0.1f, OnReachedGoal);
+        _movableToGoal = new(transform, Speed, 0.1f, OnReachedGoal);
         this.endAction = endAction;
     }
 

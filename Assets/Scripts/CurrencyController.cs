@@ -17,22 +17,22 @@ public class CurrencyController : MonoBehaviour
         InitReaction();
     }
 
-    public void AddCurrency(CurrencyType itemType, int count = 1, bool autoSave = true)
+    public void AddCurrency(CurrencyType currencyType, int count = 1, bool autoSave = true)
     {
-        _data.gameData.battleData.AddCurrency(itemType, count, out int result);
+        _data.gameData.battleData.AddCurrency(currencyType, count, out int result);
         if (autoSave) _data.Save();
 
-        Reaction(itemType, result);
+        Reaction(currencyType, result);
     }
 
-    public void ReduceCurrency(CurrencyType itemType, int count = 1, bool autoSave = true, Action completeAction = null, Action failAction = null)
+    public void ReduceCurrency(CurrencyType currencyType, int count = 1, bool autoSave = true, Action completeAction = null, Action failAction = null)
     {
-        if (_data.gameData.battleData.GetCurrencyCount(itemType) >= count)
+        if (_data.gameData.battleData.GetCurrencyCount(currencyType) >= count)
         {
-            _data.gameData.battleData.AddCurrency(itemType, -count, out int result);
+            _data.gameData.battleData.AddCurrency(currencyType, -count, out int result);
             if (autoSave) _data.Save();
 
-            Reaction(itemType, result);
+            Reaction(currencyType, result);
 
             completeAction?.Invoke();
         }
@@ -42,7 +42,9 @@ public class CurrencyController : MonoBehaviour
     public void ClearCurrency(CurrencyType currencyType)
     {
         var count = GetCurrencyValue(currencyType);
-        _data.gameData.battleData.AddCurrency(currencyType, -count, out _);
+        _data.gameData.battleData.AddCurrency(currencyType, -count, out var result);
+
+        Reaction(currencyType, result);
     }
 
     public int GetCurrencyValue(CurrencyType currencyType)
@@ -52,22 +54,22 @@ public class CurrencyController : MonoBehaviour
 
     private void InitReaction()
     {
-        var itemTypes = EnumUtility.GetValues<CurrencyType>();
+        var currencyTypes = EnumUtility.GetValues<CurrencyType>();
 
         foreach (var tr in _transactionReactables)
-            foreach (var itemType in itemTypes)
-                tr.OnTransactionReact(itemType, _data.gameData.battleData.GetCurrencyCount(itemType));
+            foreach (var currencyType in currencyTypes)
+                tr.OnTransactionReact(currencyType, _data.gameData.battleData.GetCurrencyCount(currencyType));
     }
 
-    private void Reaction(CurrencyType itemType, int finalValue)
+    private void Reaction(CurrencyType currencyType, int finalValue)
     {
-        foreach (var tr in _transactionReactables) tr.OnTransactionReact(itemType, finalValue);
+        foreach (var tr in _transactionReactables) tr.OnTransactionReact(currencyType, finalValue);
     }
 }
 
 public interface ITransactionReactable
 {
-    void OnTransactionReact(CurrencyType itemType, int finalValue);
+    void OnTransactionReact(CurrencyType currencyType, int finalValue);
 }
 
 public enum CurrencyType

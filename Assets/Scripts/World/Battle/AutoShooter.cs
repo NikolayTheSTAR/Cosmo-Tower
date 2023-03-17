@@ -1,21 +1,23 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TheSTAR.Utility;
 
+[Serializable]
 public class AutoShooter : Shooter
 {
-    private float _period;
+    private float _period = 1;
     private List<HpOwner> _goals;
     private bool _isSimulate;
     private AutoShooterStatus _status;
 
-    public AutoShooter(Transform transform, float period, float force) : base (transform, force)
+    public AutoShooter(Transform transform) : base (transform)
     {
         _status = AutoShooterStatus.ReadyToShoot;
-        _period = period;
         _goals = new();
     }
+
+    public void SetPeriod(float value) => _period = value;
 
     public void StartSimulateShooting()
     {

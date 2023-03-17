@@ -2,17 +2,18 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class HpOwner
 {
     private float _currentHp;
-    private int _maxHp;
+    private float _maxHp;
     private HpOwnerStatus _status;
     private Action onDeadAction;
 
     private Transform transform;
     public Transform Transform => transform;
 
-    public HpOwner(Transform transform, int maxHp, Action onDeadAction)
+    public HpOwner(Transform transform, float maxHp, Action onDeadAction)
     {
         this.transform = transform;
         this._maxHp = maxHp;

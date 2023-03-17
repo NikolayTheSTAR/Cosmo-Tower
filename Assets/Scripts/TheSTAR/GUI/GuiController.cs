@@ -22,12 +22,15 @@ namespace TheSTAR.GUI
         [Inject] private readonly Sound.SoundController sound;
         [Inject] private readonly GameController gameController;
         [Inject] private readonly GameWorld world;
+        [Inject] private readonly UpgradeController upgrades;
 
         private GuiScreen currentScreen;
 
-        public void Init(out List<ITransactionReactable> trs)
+        public void Init(out List<ITransactionReactable> trs, out List<IUpgradeReactable> urs)
         {
             trs = new();
+            urs = new();
+
             for (int i = 0; i < screens.Length; i++)
             {
                 var screen = screens[i];
@@ -37,6 +40,7 @@ namespace TheSTAR.GUI
                 if (deactivateOtherScreensByStart && screen.gameObject.activeSelf) screen.gameObject.SetActive(false);
 
                 if (screen is ITransactionReactable tr) trs.Add(tr);
+                if (screen is IUpgradeReactable ur) urs.Add(ur);
             }
 
             var menu = FindScreen<MenuScreen>();
@@ -47,7 +51,7 @@ namespace TheSTAR.GUI
             });
             
             var game = FindScreen<GameScreen>();
-            game.Init(sound, () =>
+            game.Init(upgrades, sound, () =>
             {
                 world.AnimateHideContent();
                 sound.StopMusic(Sound.MusicChangeType.Volume);

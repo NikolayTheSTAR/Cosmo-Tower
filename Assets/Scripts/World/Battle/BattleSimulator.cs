@@ -12,6 +12,8 @@ public class BattleSimulator : MonoBehaviour
     [Inject] private readonly GameController gameController;
     [Inject] private readonly CurrencyController currencyController;
 
+    public Tower Tower => tower;
+
     public void Init()
     {
         tower.Init(bulletsContainer.Shoot, gameController.BattleLost);

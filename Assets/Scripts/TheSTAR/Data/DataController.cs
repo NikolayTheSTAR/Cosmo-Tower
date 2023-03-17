@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using Newtonsoft;
 using Newtonsoft.Json;
 
 namespace TheSTAR.Data
@@ -64,6 +63,7 @@ namespace TheSTAR.Data
         [Serializable]
         public class BattleData
         {
+            // coins
             public Dictionary<CurrencyType, int> currencyData = new();
 
             public void AddCurrency(CurrencyType currencyType, int count, out int result)
@@ -77,6 +77,29 @@ namespace TheSTAR.Data
             public int GetCurrencyCount(CurrencyType currencyType)
             {
                 if (currencyData.ContainsKey(currencyType)) return currencyData[currencyType];
+                else return 0;
+            }
+
+            // upgrades
+            public TowerUpgradeData towerUpgradeData = new();
+        }
+
+        [SerializeField]
+        public class TowerUpgradeData
+        {
+            public Dictionary<UpgradeType, int> upgradeLevels = new();
+
+            public void LevelUp(UpgradeType upgradeType, out int result)
+            {
+                if (upgradeLevels.ContainsKey(upgradeType)) upgradeLevels[upgradeType] ++;
+                else upgradeLevels.Add(upgradeType, 1);
+
+                result = upgradeLevels[upgradeType];
+            }
+
+            public int GetLevel(UpgradeType upgradeType)
+            {
+                if (upgradeLevels.ContainsKey(upgradeType)) return upgradeLevels[upgradeType];
                 else return 0;
             }
         }

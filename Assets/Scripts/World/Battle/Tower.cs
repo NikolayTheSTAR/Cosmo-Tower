@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour
+public class Tower : MonoBehaviour, IUpgradeReactable
 {
     private HpOwner hpOwner;
     private AutoShooter autoShooter;
@@ -10,8 +9,7 @@ public class Tower : MonoBehaviour
     public void Init(Action<Shooter, HpOwner, float> ShootAction, Action OnTowerDestroyed)
     {
         hpOwner = new(transform, 5, OnTowerDestroyed);
-        autoShooter = new(transform, 1, 1);
-
+        autoShooter = new(transform);
         autoShooter.ShootEvent += ShootAction;
     }
 
@@ -27,5 +25,23 @@ public class Tower : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy")) autoShooter.RemoveGoal(collision.GetComponent<Enemy>().HpOwner);
+    }
+
+    public void OnUpgradeReact(UpgradeType upgradeType, float value)
+    {
+        switch (upgradeType)
+        {
+            case UpgradeType.Damage:
+                autoShooter.SetForce(value);
+                break;
+
+            case UpgradeType.AttackSpeed:
+                autoShooter.SetPeriod(value);
+                break;
+
+            case UpgradeType.AttackDistance:
+                
+                break;
+        }
     }
 }

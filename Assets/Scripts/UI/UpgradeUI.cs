@@ -10,9 +10,16 @@ public class UpgradeUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI title;
     [SerializeField] private TextMeshProUGUI costText;
 
-    public void Init(string name, int cost)
+    private UpgradeType _upgradeType;
+
+    public void Init(UpgradeType upgradeType, string name)
     {
+        _upgradeType = upgradeType;
         title.text = name;
+    }
+
+    public void Set(int cost)
+    {
         costText.text = $"$ {cost}";
     }
 }

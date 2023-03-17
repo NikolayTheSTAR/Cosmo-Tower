@@ -12,14 +12,18 @@ public class Enemy : MonoBehaviour
     public HpOwner HpOwner => _hpOwner;
     public int Cost => _cost;
 
+    private const float Speed = 0.5f;
+
     private Action<Enemy> _onDeadAction;
 
     public void Init(Action<Enemy> goalReachedAction, Action<Enemy> deadAction)
     {
-        _hpOwner = new(transform, 1, Die);
-        _movableToGoal = new(transform, 1, 0.25f, () => goalReachedAction?.Invoke(this));
+        _hpOwner = new(transform, 2.3f, Die);
+        _movableToGoal = new(transform, Speed, 0.25f, () => goalReachedAction?.Invoke(this));
         _onDeadAction = deadAction;
     }
+
+    public void Reset() => _hpOwner.Reset();
 
     public void MoveTo(Transform goal) => _movableToGoal.MoveTo(goal);
 
