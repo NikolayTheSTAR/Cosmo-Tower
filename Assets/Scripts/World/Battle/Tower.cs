@@ -36,7 +36,7 @@ public class Tower : MonoBehaviour, IUpgradeReactable
                 break;
 
             case UpgradeType.AttackSpeed:
-                autoShooter.SetPeriod(value);
+                autoShooter.SetPeriod(1 / value);
                 break;
 
             case UpgradeType.AttackDistance:

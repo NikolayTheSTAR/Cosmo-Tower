@@ -17,12 +17,12 @@ namespace TheSTAR.GUI.Screens
 
         private Sound.SoundController _sound;
 
-        public void Init(UpgradeController upgrades, Sound.SoundController sound, Action exitAction)
+        public void Init(UpgradeController upgrades, CurrencyController currency, Sound.SoundController sound, Action exitAction)
         {
             _sound = sound;
 
             exitButton.Init(exitAction);
-            upgradePanel.Init(upgrades);
+            upgradePanel.Init(upgrades, currency);
 
             showHideUpgradesButton.Init(OnShowHideUpgradesButtonClick);
         }

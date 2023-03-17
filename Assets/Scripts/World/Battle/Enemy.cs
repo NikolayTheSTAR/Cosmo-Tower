@@ -5,6 +5,7 @@ public class Enemy : MonoBehaviour
 {
     private float _force = 1;
     private int _cost = 1;
+    private float _maxHp = 2.3f; // 2.3f
     private HpOwner _hpOwner;
     private MovableToGoal _movableToGoal;
 
@@ -18,7 +19,7 @@ public class Enemy : MonoBehaviour
 
     public void Init(Action<Enemy> goalReachedAction, Action<Enemy> deadAction)
     {
-        _hpOwner = new(transform, 2.3f, Die);
+        _hpOwner = new(transform, _maxHp, Die);
         _movableToGoal = new(transform, Speed, 0.25f, () => goalReachedAction?.Invoke(this));
         _onDeadAction = deadAction;
     }

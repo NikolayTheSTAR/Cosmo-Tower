@@ -37,7 +37,7 @@ public class UpgradeController : MonoBehaviour
         float value;
         foreach (var upgradeType in upgradeTypes)
         {
-            value = GetUpgradeValue(upgradeType);
+            value = GetUpgradeLevelData(upgradeType).Value;
             foreach (var ur in _upgradeReactables) ur.OnUpgradeReact(upgradeType, value);
         }
     }
@@ -49,21 +49,31 @@ public class UpgradeController : MonoBehaviour
 
     public UpgradeData GetUpgradeData(UpgradeType upgradeType) => UpgradeConfig.Upgrades[(int)upgradeType];
 
+    public UpgradeLevelData GetUpgradeLevelData(UpgradeType upgradeType)
+    {
+        var upgradeData = GetUpgradeData(upgradeType);
+        return upgradeData.Levels[data.gameData.battleData.towerUpgradeData.GetLevel(upgradeType)];
+    }
+
     public UpgradeLevelData GetNextUpgradeLevelData(UpgradeType upgradeType)
     {
         var upgradeData = GetUpgradeData(upgradeType);
         return upgradeData.Levels[data.gameData.battleData.towerUpgradeData.GetLevel(upgradeType) + 1];
     }
 
-    public float GetUpgradeValue(UpgradeType upgradeType)
-    {
-        var upgradeData = GetUpgradeData(upgradeType);
-        return upgradeData.Levels[data.gameData.battleData.towerUpgradeData.GetLevel(upgradeType)].Value;
-    }
-
     public void Upgrade(UpgradeType upgradeType)
     {
+        data.gameData.battleData.towerUpgradeData.LevelUp(upgradeType, out _);
 
+        var upgradeData = GetUpgradeLevelData(upgradeType);
+        Reaction(upgradeType, upgradeData.Value);
+    }
+
+    public void ResetUpgrades()
+    {
+        data.gameData.ResetBattleData();
+
+        InitReaction();
     }
 }
 

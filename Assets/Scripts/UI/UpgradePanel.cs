@@ -8,10 +8,12 @@ public class UpgradePanel : MonoBehaviour, IUpgradeReactable
     [SerializeField] private UpgradeUI[] upgrades = new UpgradeUI[0];
 
     private UpgradeController _upgradesController;
+    private CurrencyController _currencyController;
 
-    public void Init(UpgradeController upgradesController)
+    public void Init(UpgradeController upgradesController, CurrencyController currencyController)
     {
         _upgradesController = upgradesController;
+        _currencyController = currencyController;
 
         var upgradeTypes = EnumUtility.GetValues<UpgradeType>();
 
@@ -23,7 +25,7 @@ public class UpgradePanel : MonoBehaviour, IUpgradeReactable
             upgradeType = upgradeTypes[i];
             ui = upgrades[i];
             data = _upgradesController.GetUpgradeData(upgradeType);
-            ui.Init(upgradeType, data.Name);
+            ui.Init(upgradeType, data.Name, OnUpgradeButtonClick);
             ui.gameObject.SetActive(true);
         }
     }
@@ -34,5 +36,11 @@ public class UpgradePanel : MonoBehaviour, IUpgradeReactable
         int cost = _upgradesController.GetNextUpgradeLevelData(upgradeType).Cost;
 
         ui.Set(cost);
+    }
+
+    private void OnUpgradeButtonClick(UpgradeType upgradeType)
+    {
+        int cost = _upgradesController.GetNextUpgradeLevelData(upgradeType).Cost;
+        _currencyController.ReduceCurrency(CurrencyType.Coin, cost, false, () => _upgradesController.Upgrade(upgradeType));
     }
 }

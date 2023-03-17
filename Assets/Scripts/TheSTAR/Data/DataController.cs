@@ -58,6 +58,8 @@ namespace TheSTAR.Data
             public bool isSoundsOn = true;
 
             public BattleData battleData = new();
+
+            public void ResetBattleData() => battleData = new();
         }
 
         [Serializable]

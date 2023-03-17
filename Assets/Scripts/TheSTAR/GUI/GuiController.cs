@@ -22,6 +22,7 @@ namespace TheSTAR.GUI
         [Inject] private readonly Sound.SoundController sound;
         [Inject] private readonly GameController gameController;
         [Inject] private readonly GameWorld world;
+        [Inject] private readonly CurrencyController currency;
         [Inject] private readonly UpgradeController upgrades;
 
         private GuiScreen currentScreen;
@@ -51,7 +52,7 @@ namespace TheSTAR.GUI
             });
             
             var game = FindScreen<GameScreen>();
-            game.Init(upgrades, sound, () =>
+            game.Init(upgrades, currency, sound, () =>
             {
                 world.AnimateHideContent();
                 sound.StopMusic(Sound.MusicChangeType.Volume);
@@ -108,9 +109,6 @@ namespace TheSTAR.GUI
         }
 
         [ContextMenu("SortScreens")]
-        private void SortScreens()
-        {
-            System.Array.Sort(screens);
-        }
+        private void SortScreens() => Array.Sort(screens);
     }
 }

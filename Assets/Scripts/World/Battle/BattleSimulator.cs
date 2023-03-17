@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using TheSTAR.Data;
 
 public class BattleSimulator : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class BattleSimulator : MonoBehaviour
 
     [Inject] private readonly GameController gameController;
     [Inject] private readonly CurrencyController currencyController;
+    [Inject] private readonly UpgradeController upgradeController;
 
     public Tower Tower => tower;
 
@@ -23,9 +25,11 @@ public class BattleSimulator : MonoBehaviour
     public void StartBattle()
     {
         tower.Reset();
+        currencyController.ClearCurrency(CurrencyType.Coin);
+        upgradeController.ResetUpgrades();
+
         enemySimulator.StartSimulate(tower.transform);
         bulletsContainer.StartSimulate();
-        currencyController.ClearCurrency(CurrencyType.Coin);
     }
 
     public void StopBattle()

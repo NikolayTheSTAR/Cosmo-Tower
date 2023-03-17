@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TheSTAR.Utility.Pointer;
@@ -12,10 +12,12 @@ public class UpgradeUI : MonoBehaviour
 
     private UpgradeType _upgradeType;
 
-    public void Init(UpgradeType upgradeType, string name)
+    public void Init(UpgradeType upgradeType, string name, Action<UpgradeType> clickAction)
     {
         _upgradeType = upgradeType;
         title.text = name;
+
+        buyButton.Init(() => clickAction.Invoke(_upgradeType));
     }
 
     public void Set(int cost)
