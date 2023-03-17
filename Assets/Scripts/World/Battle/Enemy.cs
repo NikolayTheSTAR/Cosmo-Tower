@@ -7,12 +7,19 @@ public class Enemy : MonoBehaviour
     private float _speed = 1;
     private float _force = 1;
     private float _neededGoalDistance = 0.25f;
+    private HpOwner _hpOwner;
 
     public float Force => _force;
 
     private Action<Enemy> OnGoalReached;
 
-    public void Init(Action<Enemy> goalReachedAction) => OnGoalReached = goalReachedAction;
+    public HpOwner HpOwner => _hpOwner;
+
+    public void Init(Action<Enemy> goalReachedAction)
+    {
+        _hpOwner = new(transform, 1, null);
+        OnGoalReached = goalReachedAction;
+    }
 
     public void MoveTo(Transform goal)
     {

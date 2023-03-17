@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3b2a94fcc2b8946a0addf89bf06ee621, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 40891dabfadc341fdbe1088e551011b6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -93,11 +93,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 972486436132734569}
-  - component: {fileID: 972486436132734574}
-  - component: {fileID: 261829925327295442}
+  - component: {fileID: 4761783049290933043}
   m_Layer: 0
-  m_Name: Enemy
-  m_TagString: Enemy
+  m_Name: Bullet
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,7 +117,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &972486436132734574
+--- !u!114 &4761783049290933043
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,22 +126,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 972486436132734568}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e728542957ab4cba9ace73f4aba1f08, type: 3}
+  m_Script: {fileID: 11500000, guid: 433668a82429f405abfc2708e4c90cc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!58 &261829925327295442
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 972486436132734568}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.1

@@ -7,8 +7,8 @@ public class GameWorld : MonoBehaviour
 {
     [SerializeField] private GameObject content;
     [SerializeField] private Animation contentAnim;
-    [SerializeField] private Tower tower;
-    [SerializeField] private EnemySimulator enemySimulator;
+    [SerializeField] private BattleSimulator battle;
+    
 
     [Inject] private readonly GameController gameController;
 
@@ -18,28 +18,25 @@ public class GameWorld : MonoBehaviour
         gameController.ExitBattleEvent += DeactivateContent;
         gameController.BattleLostEvent += DeactivateContent;
 
-        enemySimulator.Init(tower.Damage);
-
-        tower.OnTowerDestroyed += gameController.BattleLost;
+        battle.Init();
     }
 
     private void ActivateContent()
     {
         content.SetActive(true);
-        tower.InitForBattle(5);
 
-        enemySimulator.StartSimulate(tower.transform);
+        battle.StartBattle();
     }
 
     private void DeactivateContent()
     {
         content.SetActive(false);
-        enemySimulator.StopSimulate();
+        battle.StopBattle();
     }
 
     public void AnimateHideContent()
     {
         contentAnim.Play("Hide");
-        enemySimulator.StopSimulate();
+        battle.StopBattle();
     }
 }
