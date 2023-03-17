@@ -32,9 +32,9 @@ public class CurrencyController : MonoBehaviour
             _data.gameData.battleData.AddCurrency(currencyType, -count, out int result);
             if (autoSave) _data.Save();
 
-            Reaction(currencyType, result);
-
             completeAction?.Invoke();
+
+            Reaction(currencyType, result);
         }
         else failAction?.Invoke();
     }

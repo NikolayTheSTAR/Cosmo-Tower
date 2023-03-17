@@ -21,13 +21,7 @@ public class UpgradeUI : MonoBehaviour
         buyButton.Init(() => clickAction.Invoke(_upgradeType));
     }
 
-    public void SetCost(int cost)
-    {
-        costText.text = $"$ {cost}";
-    }
+    public void SetCost(int cost) => costText.text = $"$ {cost}";
 
-    public void SetAvailable(bool available)
-    {
-        canvasGroup.alpha = available ? 1 : 0.5f;
-    }
+    public void SetAvailable(bool available) => canvasGroup.alpha = available ? 1 : 0.5f;
 }

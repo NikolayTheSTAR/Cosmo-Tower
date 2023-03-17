@@ -49,6 +49,7 @@ namespace TheSTAR.Data
         private void LoadDefault()
         {        
             gameData = new();
+            Save();
         }
         
         [Serializable]
@@ -65,8 +66,8 @@ namespace TheSTAR.Data
         [Serializable]
         public class BattleData
         {
-            // coins
             public Dictionary<CurrencyType, int> currencyData = new();
+            public TowerUpgradeData towerUpgradeData = new();
 
             public void AddCurrency(CurrencyType currencyType, int count, out int result)
             {
@@ -80,10 +81,7 @@ namespace TheSTAR.Data
             {
                 if (currencyData.ContainsKey(currencyType)) return currencyData[currencyType];
                 else return 0;
-            }
-
-            // upgrades
-            public TowerUpgradeData towerUpgradeData = new();
+            }            
         }
 
         [SerializeField]
